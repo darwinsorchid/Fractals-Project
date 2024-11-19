@@ -1,17 +1,8 @@
-'''                                                The Mandelbrot Fractal
-The Mandelbrot set is a set of complex numbers that produces a distinctive, self-similar fractal pattern when visualized. 
-It was named after the mathematician Benoit Mandelbrot, who popularized fractal geometry in the 1980s.
-Mathematically, it is defined as a set of complex numbers c, for which the function fc(z) = z^2 + c does not diverge to infinity
-when iterated, starting at z = 0.
-
-The Mandelbrot set has become an icon of chaos theory and complex dynamics. 
-It provides insights into the behavior of dynamical systems, 
-particularly how small changes in initial conditions can lead to vastly different outcomes 
-(a property known as "sensitivity to initial conditions").
-
-When plotted, the Mandelbrot set is connected, 
-meaning there is a continuous path within the set between any two points in the set. 
-The boundary, however, is highly convoluted and infinitely complex.
+'''    
+#                           >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#                           >>                               Visualizing                                <<
+#                           >>                          The Mandelbrot Fractal                          <<
+#                           >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>        
 '''
 
 # ------------------------------------------------ Import Libraries -----------------------------------------------
@@ -19,10 +10,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import streamlit as st
 
+# ------------------------------------------------ Streamlit Page Configuration ---------------------------------------------
+# Set the initial sidebar state to 'collapsed' when the app starts
+st.set_page_config(initial_sidebar_state="collapsed")
 
 # ------------------------------------------------ Streamlit Markdown ---------------------------------------------
+
 st.markdown("# The Mandelbrot Fractal")
-with st.expander("Info"):
+with st.expander("Take a look into the organized chaos 🕳️"):
     st.write('''The Mandelbrot set is a set of complex numbers that produces a distinctive, self-similar fractal pattern when visualized. 
 It was named after the mathematician Benoit Mandelbrot, who popularized fractal geometry in the 1980s.
 Mathematically, it is defined as a set of complex numbers c, for which the function fc(z) = z^2 + c does not diverge to infinity
@@ -39,6 +34,9 @@ The boundary, however, is highly convoluted and infinitely complex.''')
     
 
 # ------------------------------------------------ Streamlit Sliders ----------------------------------------------
+
+st.sidebar.write("I know you want to master the unknown...")
+
 # Slider to control the maximum number of iterations
 max_iter = st.sidebar.slider('Max Iterations', 1, 500, 50)
 
@@ -83,7 +81,6 @@ z_limit = 2
 # Create array to store the number of iterations
 iterations = np.zeros(complex_grid.shape, dtype=int)
 
-
 # Iterate through complex grid points
 for row in range(complex_grid.shape[0]):
     for col in range(complex_grid.shape[1]):
@@ -111,11 +108,25 @@ for row in range(complex_grid.shape[0]):
 fig = plt.figure(figsize=(20, 20))
 plt.imshow(iterations, cmap='inferno', extent=[center_real - real_range/2, center_real + real_range/2,
                                                center_imag - imag_range/2, center_imag + imag_range/2])
-plt.colorbar(label='Iterations to Divergence')
-plt.title('Mandelbrot Set')
-plt.xlabel('Real')
-plt.ylabel('Imaginary')
+fig.patch.set_facecolor('#030305')
 
+# Add colorbar and label
+cbar = plt.colorbar(label='Iterations to Divergence')
+cbar.set_label('Iterations to Divergence', color='#ecd9fa')
+
+plt.title('Mandelbrot Set', color = '#ecd9fa')
+plt.xlabel('Real', color = '#ecd9fa')
+plt.ylabel('Imaginary', color = '#ecd9fa')
+
+plt.xticks(color = '#ecd9fa')
+plt.yticks(color = '#ecd9fa')
+
+# Add space 
+st.write("")
+st.write("")
+st.write("")
+
+# Render plot
 st.pyplot(fig)
 
 
